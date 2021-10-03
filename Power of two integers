@@ -1,0 +1,11 @@
+int Solution::isPower(int A) {
+    if(A==1) return 0; 
+    int n= sqrt(A);
+    for(int i=2;i<= n;i++){
+        float p=log(A)/log(i);
+        int p1= p;
+        if((float)p1==p) return 1;
+    }
+    return 0;
+
+}
