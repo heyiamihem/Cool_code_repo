@@ -1,0 +1,38 @@
+void init(TreeNode* A, unordered_map<TreeNode*,int> &Nodes, int depth){
+    if(A){
+        
+        init(A->left, Nodes, depth+1);
+        Nodes[A]=depth;
+        init(A->right, Nodes,depth+1);
+    }
+}
+vector<vector<int> > Solution::levelOrder(TreeNode* A) {
+ 
+    unordered_map<TreeNode*, int> Nodes;
+    init(A,Nodes,0);
+    int Max_depth=0;
+    for(auto i: Nodes){
+        Max_depth= max(Max_depth, i.second);
+    }
+    vector<vector<int>> res(Max_depth+1);
+    TreeNode* root=A;
+    queue<TreeNode*> Q;
+    Q.push(root);
+    int depth=0;
+    while(!Nodes.empty()){
+        
+        root= Q.front();
+        Q.pop();
+        depth = Nodes[root];
+        res[depth].push_back(root->val);
+        Nodes.erase(root);
+        
+        if(root->left)
+            Q.push(root->left);
+        if(root->right)
+            Q.push(root->right);
+    
+
+    }
+    return res;
+}
